@@ -23,7 +23,7 @@ public class Parser {
 		
 		//Create board + mover objects
 		Board b = new Board(xSize, ySize);
-		Movers m = new Movers();
+		Mover m = new Mover();
 		
 		//Parse File
 		for(int y = 0; y<ySize;y++){
@@ -48,7 +48,7 @@ public class Parser {
 	
 		ProblemState ps = new ProblemState();
 		ps.board = b;
-		ps.movers = m;
+		ps.mover = m;
 		return ps;
 	}
 }
