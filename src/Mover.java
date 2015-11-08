@@ -1,6 +1,7 @@
 import java.util.HashMap;
 
 public class Mover {
+	private int hashCode;
 	private Point pusher;
 	private HashMap<Character,Point> blocks;
 	public enum direction{up,down,left,right};
@@ -11,10 +12,38 @@ public class Mover {
 
 	public void setPusherPos(Point p){
 		pusher = p;
+		calculateHashCode();
 	}
 	
 	public void addBlock(Character c, Point p){
 		blocks.put(c, p);
+		calculateHashCode();
+	}
+	@Override
+	public boolean equals(Object obj){
+		Mover m = (Mover)obj;
+		if(!this.pusher.equals(m.pusher)){
+			return false;
+		}
+		for(Character c : m.blocks.keySet()){
+			if(!this.blocks.get(c).equals(m.blocks.get(c))){
+				return false;
+			}
+		}
+		return true;
+	}
+	@Override
+	public int hashCode() {
+
+		return hashCode;
+    }
+	private void calculateHashCode(){
+		hashCode = 0;
+		hashCode += pusher.hashCode();
+		for(Character c : blocks.keySet()){
+			hashCode*=4;
+			hashCode += blocks.get(c).hashCode();
+		}
 	}
 	
 	public Mover doMove(direction d){
@@ -57,7 +86,7 @@ public class Mover {
 			}
 			break;
 		}
-		
+		calculateHashCode();
 		return m;
 	}
 	public boolean isLegal(Board b){

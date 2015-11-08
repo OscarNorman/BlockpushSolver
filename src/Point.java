@@ -18,4 +18,9 @@ public class Point implements Cloneable{
 	public String toString(){
 		return "Point("+x+","+y+")"; 
 	}
+	@Override
+	public int hashCode() {
+		
+		return (256*x)+y;
+    }
 }
